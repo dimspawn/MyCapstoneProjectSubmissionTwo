@@ -1,0 +1,5 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="no_favorite_found">No Favorite Found</string>
+    <string name="browse_favorite_movies">Browse Favorite Movies</string>
+</resources>

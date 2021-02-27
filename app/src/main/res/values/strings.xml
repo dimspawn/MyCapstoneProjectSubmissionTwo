@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MoviDex</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="oops_something_went_wrong">Oops.. something went wrong</string>
+    <string name="empty_text">Data is Empty</string>
+    <string name="title_favorite">Favorite Movies</string>
+    <string name="description_title">Description:</string>
+    <string name="genre_placeholder">Genre:</string>
+    <string name="search">Search</string>
+    <string name="browse_movies">Browse Movies</string>
+    <string name="movies_not_found">Movies Not Found</string>
+</resources>
