@@ -5,13 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".FavoriteFragment">
 
-    <TextView
+    <include
         android:id="@+id/no_favorite_found"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_favorite_found"
-        android:visibility="gone"
-        android:layout_gravity="center"/>
+        layout="@layout/view_empty"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movies_favorite"

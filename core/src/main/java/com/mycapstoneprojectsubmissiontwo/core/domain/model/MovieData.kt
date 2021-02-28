@@ -13,7 +13,7 @@ data class MovieData(
         val movieRating: Double,
         val movieBackgroundImage: String,
         val movieLandscapeImage: String,
-        val movieIsVisited: Int,
+        var movieIsVisited: Boolean,
         val movieIsFavorite: Boolean,
         val movieDate: String,
         var movieIsSearchResult: Boolean,

@@ -11,4 +11,10 @@
     <string name="rating_at">Rating: %.1f</string>
     <string name="genre_placeholder">[genre]</string>
     <string name="browse_favorite_movies">Browse Favorite Movies</string>
+    <string name="favorite_not_found">Favorite Not Found</string>
+    <string name="pin_certificate_1">sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=</string>
+    <string name="pin_certificate_2">sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</string>
+    <string name="pin_certificate_3">sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
+    <string name="base_url">https://api.themoviedb.org/</string>
+    <string name="host_name">api.themoviedb.org</string>
 </resources>

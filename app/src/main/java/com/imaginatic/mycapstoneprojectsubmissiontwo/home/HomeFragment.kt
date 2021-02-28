@@ -30,6 +30,7 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
     }
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var searchView: SearchView
 
     override fun onMovieClickListener(movieData: MovieData) {
         val intent = Intent(context, DetailMovieActivity::class.java)
@@ -65,21 +66,19 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
                 if (movie != null) {
                     when(movie) {
                         is Resource.Loading -> {
-                            binding.rvMovies.visibility = View.GONE
-                            binding.tvViewError.visibility = View.GONE
-                            binding.progressBar.visibility = View.VISIBLE
+                            visibleView(binding.progressBar)
                         }
                         is Resource.Success -> {
-                            movieAdapter.setData(movie.data)
-                            binding.progressBar.visibility = View.GONE
-                            binding.tvViewError.visibility = View.GONE
-                            binding.rvMovies.visibility = View.VISIBLE
+                            if (movie.data.isNullOrEmpty()) {
+                                visibleView(binding.noHomeFound.root)
+                            } else {
+                                movieAdapter.setData(movie.data)
+                                visibleView(binding.rvMovies)
+                            }
                         }
                         is Resource.Error -> {
                             binding.tvViewError.text = movie.message
-                            binding.progressBar.visibility = View.GONE
-                            binding.rvMovies.visibility = View.GONE
-                            binding.tvViewError.visibility = View.VISIBLE
+                            visibleView(binding.tvViewError)
                         }
                     }
                 }
@@ -89,27 +88,19 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
                 if (movieSearch != null) {
                     when (movieSearch) {
                         is Resource.Loading -> {
-                            binding.rvMovies.visibility = View.GONE
-                            binding.tvViewError.visibility = View.GONE
-                            binding.progressBar.visibility = View.VISIBLE
+                            visibleView(binding.progressBar)
                         }
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
                             if (!movieSearch.data.isNullOrEmpty()) {
                                 movieAdapter.setData(movieSearch.data)
-                                binding.tvViewError.visibility = View.GONE
-                                binding.rvMovies.visibility = View.VISIBLE
+                                visibleView(binding.rvMovies)
                             } else {
-                                binding.tvViewError.text = getString(R.string.movies_not_found)
-                                binding.rvMovies.visibility = View.GONE
-                                binding.tvViewError.visibility = View.VISIBLE
+                                visibleView(binding.noHomeFound.root)
                             }
                         }
                         is Resource.Error -> {
                             binding.tvViewError.text = movieSearch.message
-                            binding.rvMovies.visibility = View.GONE
-                            binding.progressBar.visibility = View.GONE
-                            binding.tvViewError.visibility = View.VISIBLE
+                            visibleView(binding.tvViewError)
                         }
                     }
                 }
@@ -129,18 +120,29 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
         inflater.inflate(R.menu.option_menu, menu)
 
         val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.menu_search).actionView as SearchView
+        searchView = menu.findItem(R.id.menu_search).actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         searchView.queryHint = resources.getString(R.string.browse_movies)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    homeViewModel.setMovieName(query)
-                }
+                if (query != null) { homeViewModel.setMovieName(query) }
+                searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        searchView.setOnQueryTextListener(null)
+    }
+
+    private fun visibleView(theView: View) {
+        binding.rvMovies.visibility = if (binding.rvMovies == theView) { View.VISIBLE} else { View.GONE }
+        binding.tvViewError.visibility = if (binding.tvViewError == theView ) { View.VISIBLE } else { View.GONE }
+        binding.noHomeFound.root.visibility = if (binding.noHomeFound.root == theView) { View.VISIBLE } else { View.GONE }
+        binding.progressBar.visibility = if (binding.progressBar == theView) { View.VISIBLE } else { View.GONE }
     }
 }

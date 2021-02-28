@@ -27,6 +27,7 @@ class FavoriteFragment : Fragment(), MovieAdapterClickListener {
     }
 
     private lateinit var binding: FragmentFavoriteBinding
+    private lateinit var searchView: SearchView
 
     override fun onMovieClickListener(movieData: MovieData) {
         val intent = Intent(context, DetailMovieActivity::class.java)
@@ -62,9 +63,9 @@ class FavoriteFragment : Fragment(), MovieAdapterClickListener {
             movieAdapter.setData(favoriteMovies)
             if (favoriteMovies.isEmpty()) {
                 binding.rvMoviesFavorite.visibility = View.GONE
-                binding.noFavoriteFound.visibility = View.VISIBLE
+                binding.noFavoriteFound.root.visibility = View.VISIBLE
             } else {
-                binding.noFavoriteFound.visibility = View.GONE
+                binding.noFavoriteFound.root.visibility = View.GONE
                 binding.rvMoviesFavorite.visibility = View.VISIBLE
             }
         })
@@ -73,9 +74,9 @@ class FavoriteFragment : Fragment(), MovieAdapterClickListener {
             movieAdapter.setData(searchFavoriteMovies)
             if (searchFavoriteMovies.isEmpty()) {
                 binding.rvMoviesFavorite.visibility = View.GONE
-                binding.noFavoriteFound.visibility = View.VISIBLE
+                binding.noFavoriteFound.root.visibility = View.VISIBLE
             } else {
-                binding.noFavoriteFound.visibility = View.GONE
+                binding.noFavoriteFound.root.visibility = View.GONE
                 binding.rvMoviesFavorite.visibility = View.VISIBLE
             }
         })
@@ -93,16 +94,22 @@ class FavoriteFragment : Fragment(), MovieAdapterClickListener {
         inflater.inflate(R.menu.option_menu_favorite, menu)
 
         val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.menu_search_favorite).actionView as SearchView
+        searchView = menu.findItem(R.id.menu_search_favorite).actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         searchView.queryHint = resources.getString(R.string.browse_favorite_movies)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) { favoriteViewModel.setMovieName(query) }
+                searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        searchView.setOnQueryTextListener(null)
     }
 }

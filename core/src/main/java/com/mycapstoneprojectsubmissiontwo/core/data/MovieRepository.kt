@@ -58,6 +58,7 @@ class MovieRepository @Inject constructor(
             override fun safeDeleteSearchResult(data: List<MovieData>) {
                 val movieList = ArrayList<MovieData>()
                 for (movie in data) {
+                    movie.movieIsVisited = false
                     movie.movieIsSearchResult = false
                     movieList.add(movie)
                 }
@@ -110,7 +111,7 @@ class MovieRepository @Inject constructor(
             override fun shouldFetch(data: List<MovieData>?): Boolean {
                 var isFetch = true
                 if (data != null) {
-                    isFetch = data[0].movieIsVisited == 0
+                    isFetch = data[0].movieIsVisited == false
                 }
                 return isFetch
             }

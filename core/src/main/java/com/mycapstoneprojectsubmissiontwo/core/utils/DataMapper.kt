@@ -132,6 +132,7 @@ object DataMapper {
 
     @SuppressLint("SimpleDateFormat")
     fun getDate(date: String): String {
+        if (date == "") return "TBA"
         val dateRes = SimpleDateFormat("yyyy-MM-dd").parse(date)
         val sdf = SimpleDateFormat("dd MMM yyyy")
         return if (dateRes != null) { sdf.format(dateRes)} else { date }

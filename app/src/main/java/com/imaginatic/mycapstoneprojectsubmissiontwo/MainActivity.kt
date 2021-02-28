@@ -69,4 +69,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             null
         }
     }
+
+    override fun onBackPressed() {
+        finishAfterTransition()
+    }
 }

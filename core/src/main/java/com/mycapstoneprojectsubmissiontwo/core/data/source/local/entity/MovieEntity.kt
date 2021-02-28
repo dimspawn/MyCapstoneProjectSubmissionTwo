@@ -29,7 +29,7 @@ data class MovieEntity(
     @ColumnInfo(name = "movieLandscapeImage")
     var movieLandscapeImage: String,
     @ColumnInfo(name = "isVisited")
-    var movieIsVisited: Int = 0,
+    var movieIsVisited: Boolean = false,
     @ColumnInfo(name = "isFavorite")
     var movieIsFavorite: Boolean = false,
     @ColumnInfo(name = "todayDate")
