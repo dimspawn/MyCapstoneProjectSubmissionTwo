@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun instantiateFragment(): Fragment? {
         return try {
-            Class.forName("com.mycapstoneprojectsubmissiontwo.favorite.FavoriteFragment").newInstance() as Fragment
+            Class.forName("com.mycapstoneprojectsubmissiontwo.favorite.favorite.FavoriteFragment").newInstance() as Fragment
         } catch (e: Exception) {
             null
         }

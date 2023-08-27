@@ -1,10 +1,11 @@
-package com.mycapstoneprojectsubmissiontwo.favorite
+package com.mycapstoneprojectsubmissiontwo.favorite.di
 
 import com.imaginatic.mycapstoneprojectsubmissiontwo.di.AppComponent
+import com.mycapstoneprojectsubmissiontwo.favorite.favorite.FavoriteFragment
 import dagger.Component
 
 @FavoriteScope
-@Component(dependencies = [AppComponent::class])
+@Component(modules = [ViewFavoriteModelModule::class], dependencies = [AppComponent::class])
 interface FavoriteComponent {
 
     @Component.Builder

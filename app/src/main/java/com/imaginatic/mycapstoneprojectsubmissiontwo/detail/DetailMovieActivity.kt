@@ -47,14 +47,15 @@ class DetailMovieActivity : AppCompatActivity() {
         movieData?.let {
             detailMoviesViewModel.setMovieId(it.movieId)
 
-            detailMoviesViewModel.detailMovie.observe(this, { movies ->
+            detailMoviesViewModel.detailMovie.observe(this) { movies ->
                 if (movies != null) {
-                    when(movies) {
+                    when (movies) {
                         is Resource.Loading -> {
                             binding.content.llContentDetailMovie.visibility = View.GONE
                             binding.content.viewErrorDetailMovie.visibility = View.GONE
                             binding.content.progressBarDetailMovie.visibility = View.VISIBLE
                         }
+
                         is Resource.Success -> {
                             binding.content.progressBarDetailMovie.visibility = View.GONE
                             if (!movies.data.isNullOrEmpty()) {
@@ -62,31 +63,40 @@ class DetailMovieActivity : AppCompatActivity() {
                                 binding.content.tvTitleDetailMovie.text = movie.movieTitle
                                 binding.content.tvDetailDescription.text = movie.movieDescription
                                 Glide.with(this)
-                                        .load(resources.getString(R.string.image_url_string_original, movie.movieLandscapeImage))
-                                        .into(binding.ivDetailImage)
+                                    .load(
+                                        resources.getString(
+                                            R.string.image_url_string_original,
+                                            movie.movieLandscapeImage
+                                        )
+                                    )
+                                    .into(binding.ivDetailImage)
                                 binding.content.rbDetailRating.stepSize = 0.5f
                                 binding.content.rbDetailRating.max = 5
-                                binding.content.rbDetailRating.rating = (movie.movieRating.toFloat() * 5) / 10
+                                binding.content.rbDetailRating.rating =
+                                    (movie.movieRating.toFloat() * 5) / 10
                                 setUpFab(movie)
                                 binding.content.viewErrorDetailMovie.visibility = View.GONE
                                 binding.content.llContentDetailMovie.visibility = View.VISIBLE
                             } else {
-                                binding.content.viewErrorDetailMovie.text = resources.getString(R.string.empty_text)
+                                binding.content.viewErrorDetailMovie.text =
+                                    resources.getString(R.string.empty_text)
                                 binding.content.llContentDetailMovie.visibility = View.GONE
                                 binding.content.viewErrorDetailMovie.visibility = View.VISIBLE
                             }
                         }
+
                         is Resource.Error -> {
-                            binding.content.viewErrorDetailMovie.text = resources.getString(R.string.oops_something_went_wrong)
+                            binding.content.viewErrorDetailMovie.text =
+                                resources.getString(R.string.oops_something_went_wrong)
                             binding.content.llContentDetailMovie.visibility = View.GONE
                             binding.content.progressBarDetailMovie.visibility = View.GONE
                             binding.content.viewErrorDetailMovie.visibility = View.VISIBLE
                         }
                     }
                 }
-            })
+            }
 
-            detailMoviesViewModel.genreMovie.observe(this, { genresMovie ->
+            detailMoviesViewModel.genreMovie.observe(this) { genresMovie ->
                 val genreAdapter = GenreAdapter()
                 genreAdapter.setData(genresMovie)
 
@@ -95,7 +105,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     setHasFixedSize(true)
                     adapter = genreAdapter
                 }
-            })
+            }
         }
     }
 

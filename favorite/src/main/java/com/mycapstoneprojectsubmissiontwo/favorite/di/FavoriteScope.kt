@@ -1,4 +1,4 @@
-package com.mycapstoneprojectsubmissiontwo.favorite
+package com.mycapstoneprojectsubmissiontwo.favorite.di
 
 import javax.inject.Scope
 

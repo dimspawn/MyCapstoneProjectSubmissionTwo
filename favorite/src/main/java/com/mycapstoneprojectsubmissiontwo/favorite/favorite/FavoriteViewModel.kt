@@ -1,4 +1,4 @@
-package com.mycapstoneprojectsubmissiontwo.favorite
+package com.mycapstoneprojectsubmissiontwo.favorite.favorite
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations

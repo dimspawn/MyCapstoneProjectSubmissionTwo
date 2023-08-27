@@ -1,4 +1,4 @@
-package com.imaginatic.mycapstoneprojectsubmissiontwo.di
+package com.mycapstoneprojectsubmissiontwo.core.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

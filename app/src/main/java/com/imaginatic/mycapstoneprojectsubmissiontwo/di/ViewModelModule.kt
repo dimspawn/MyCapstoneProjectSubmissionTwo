@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.imaginatic.mycapstoneprojectsubmissiontwo.detail.DetailMoviesViewModel
 import com.imaginatic.mycapstoneprojectsubmissiontwo.home.HomeViewModel
+import com.mycapstoneprojectsubmissiontwo.core.di.ViewModelKey
 import com.mycapstoneprojectsubmissiontwo.core.ui.ViewModelFactory
 import dagger.Binds
 import dagger.Module

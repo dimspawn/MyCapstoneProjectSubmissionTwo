@@ -13,4 +13,5 @@ open class MyApplication: Application() {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder().coreComponent(coreComponent).build()
     }
+
 }

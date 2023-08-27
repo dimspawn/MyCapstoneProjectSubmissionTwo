@@ -62,12 +62,13 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
         if (activity != null) {
             val movieAdapter = MovieAdapter(this)
 
-            homeViewModel.movies.observe(viewLifecycleOwner, { movie ->
+            homeViewModel.movies.observe(viewLifecycleOwner) { movie ->
                 if (movie != null) {
-                    when(movie) {
+                    when (movie) {
                         is Resource.Loading -> {
                             visibleView(binding.progressBar)
                         }
+
                         is Resource.Success -> {
                             if (movie.data.isNullOrEmpty()) {
                                 visibleView(binding.noHomeFound.root)
@@ -76,20 +77,22 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
                                 visibleView(binding.rvMovies)
                             }
                         }
+
                         is Resource.Error -> {
                             binding.tvViewError.text = movie.message
                             visibleView(binding.tvViewError)
                         }
                     }
                 }
-            })
+            }
 
-            homeViewModel.searchMovies.observe(viewLifecycleOwner, { movieSearch ->
+            homeViewModel.searchMovies.observe(viewLifecycleOwner) { movieSearch ->
                 if (movieSearch != null) {
                     when (movieSearch) {
                         is Resource.Loading -> {
                             visibleView(binding.progressBar)
                         }
+
                         is Resource.Success -> {
                             if (!movieSearch.data.isNullOrEmpty()) {
                                 movieAdapter.setData(movieSearch.data)
@@ -98,13 +101,14 @@ class HomeFragment : Fragment(), MovieAdapterClickListener {
                                 visibleView(binding.noHomeFound.root)
                             }
                         }
+
                         is Resource.Error -> {
                             binding.tvViewError.text = movieSearch.message
                             visibleView(binding.tvViewError)
                         }
                     }
                 }
-            })
+            }
 
             with(binding.rvMovies) {
                 layoutManager = LinearLayoutManager(context)
